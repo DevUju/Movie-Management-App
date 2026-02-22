@@ -18,10 +18,13 @@
         </p>
 
         <div class="movie-actions">
-          <button class="details-btn" [routerLink]="['/movie', movie.id]">
+          <button class="details-btn" [routerLink]="['/movies', movie.id]">
             View Details
           </button>
-          <button class="fav-btn" (click)="addToFavorites(movie)">❤️ Add</button>
+          <button class="fav-btn" [ngClass]="isFavorited(movie.id) ? 'added' : ''" (click)="addToFavorites(movie)" [disabled]="isFavorited(movie.id)">
+            <span *ngIf="!isFavorited(movie.id)">❤️ Add</span>
+            <span *ngIf="isFavorited(movie.id)">✅ Added</span>
+          </button>
         </div>
       </div>
 

@@ -12,7 +12,7 @@ export const routes: Routes = [
         loadComponent: () => import('./movies/movie').then(m => m.Movies)
     },
     {
-        path: 'movie/:id',
+        path: 'movies/:id',
         canActivate: [authGuard],
         loadComponent: () => import('./movies/movie-detail/movie-detail').then(m => m.MovieDetail)
     },

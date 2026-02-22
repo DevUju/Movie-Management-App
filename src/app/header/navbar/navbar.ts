@@ -24,7 +24,10 @@ export class Navbar {
   }
 
   logout(): void {
-    this.authService.logout();
+    const confirmed = confirm('Are you sure you want to logout?');
+    if (confirmed) {
+      this.authService.logout();
+    }
   }
 
 }

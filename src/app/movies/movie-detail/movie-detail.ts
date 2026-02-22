@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../movie.service';
@@ -21,6 +21,7 @@ export class MovieDetail implements OnInit {
     private route: ActivatedRoute,
     private movieService: MovieService,
     private favoriteService: FavoriteService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class MovieDetail implements OnInit {
         if (!this.movie && !this.errorMessage) {
           console.warn('[MovieDetail] Request timeout after 10 seconds');
           this.errorMessage = 'Request timeout. Please check your internet connection or try again.';
+          this.cdr.markForCheck();
         }
       }, 10000);
       
@@ -44,11 +46,13 @@ export class MovieDetail implements OnInit {
           console.log('[MovieDetail] Got response:', res);
           this.movie = res;
           this.errorMessage = '';
+          this.cdr.markForCheck();
         },
         error: (err) => {
           clearTimeout(timeoutId);
           console.error('[MovieDetail] Got error:', err);
           this.errorMessage = err?.message || String(err) || 'Unknown error loading movie';
+          this.cdr.markForCheck();
         },
         complete: () => {
           clearTimeout(timeoutId);
@@ -58,6 +62,7 @@ export class MovieDetail implements OnInit {
     } else {
       console.warn('[MovieDetail] No movie id found on route');
       this.errorMessage = 'No movie ID in route. Did you click "View Details" from the movie list?';
+      this.cdr.markForCheck();
     }
   }
 
