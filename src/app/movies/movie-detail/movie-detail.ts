@@ -16,6 +16,7 @@ export class MovieDetail implements OnInit {
   addedToFavorites = false;
   errorMessage: string = '';
   loadingMessage: string = 'Loading movie details...';
+  favoriteMovies: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -66,11 +67,11 @@ export class MovieDetail implements OnInit {
     }
   }
 
-  addToFavorites(movie: any): void {
-    this.favoriteService.addToFavorite(movie);
-    this.addedToFavorites = true;
-    setTimeout(() => this.addedToFavorites = false, 2000);
-  }
+  // addToFavorites(movie: any): void {
+  //   this.favoriteService.addToFavorite(movie);
+  //   this.addedToFavorites = true;
+  //   setTimeout(() => this.addedToFavorites = false, 2000);
+  // }
 
   goBack(): void {
     history.back();
