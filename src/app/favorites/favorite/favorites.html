@@ -1,0 +1,21 @@
+<div class="favorites-container">
+  <h2>Favourites</h2>
+  <div class="fav-item" *ngFor="let movie of favoriteMovies$ | async">
+    <span class="fav-movie-name">{{ movie.name }}</span>
+    <span class="fav-movie-name">{{ movie.overview }}</span>
+    <span><button (click)="removeFromFavorites(movie.id)">❌</button></span>
+  </div>
+  <div class="fav-total">
+    Total: {{ getTotalFavorites() }}
+  </div>
+  <div class="fav-actions">
+    <button class="btn-back" (click)="goBackToMovie()">
+      <span class="btn-icon">←</span>
+      <span>Back to Movies</span>
+    </button>
+    <button class="btn-clear" (click)="clearFavorites()">
+      <span class="btn-icon">🗑️</span>
+      <span>Clear Favorites</span>
+    </button>
+  </div>
+</div>

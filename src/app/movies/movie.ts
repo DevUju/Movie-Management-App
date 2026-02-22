@@ -1,28 +1,62 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { environment } from '../environments/environment';  // ✅ correct path
-import { ErrorHandler } from '../error-handling/error-handler';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MovieService } from './movie.service';
+import { MovieList } from './movie-list/movie-list';
+import { Navbar } from '../header/navbar/navbar';
+// FavoriteService and `Favorites` component removed from imports — not used here
 
-@Injectable({ providedIn: 'root' })
-export class MovieService {
-  private api = `${environment.baseUrl}/movie/popular?api_key=${environment.apiKey}`;
 
-  constructor(private http: HttpClient, private errorHandler: ErrorHandler) {}
+@Component({
+  selector: 'app-movie',
+  standalone: true,
+  imports: [RouterModule, MovieList, Navbar],
+  templateUrl: './movie.html',
+  styleUrls: ['./movie.css'],
+})
+export class Movies implements OnInit {
+  moviesData: any[] = [];
+  private allMovies: any[] = [];
+  searchQuery: string = '';
 
-  getMovies(): Observable<any[]> {
-    return this.http.get<any>(this.api).pipe(
-      map(response => response.results), // ✅ returns array of movies
-      catchError((err) => this.errorHandler.handleError(err))
-    );
+  private _favouriteCounter = new BehaviorSubject<number>(0);
+  favouriteCounter$: Observable<number> = this._favouriteCounter.asObservable();
+
+  constructor(
+    private movieService: MovieService,
+    private cdr: ChangeDetectorRef,
+  ) {}
+
+  ngOnInit() {
+    this.getMovieData();
   }
 
-  getMovie(id: string): Observable<any> {
-    return this.http.get<any>(
-      `${environment.baseUrl}/movie/${id}?api_key=${environment.apiKey}`
-    ).pipe(
-      catchError((err) => this.errorHandler.handleError(err))
-    );
+  onSearchApp(query: string): void {
+    this.searchQuery = query;
+    if (query.length > 0) {
+      const lowerQuery = query.toLowerCase();
+      this.moviesData = this.allMovies.filter((movie) => 
+        movie.original_title.toLowerCase().includes(lowerQuery) || 
+        movie.overview.toLowerCase().includes(lowerQuery)
+      );
+    } else {
+      this.moviesData = this.allMovies;
+    }
+    this.cdr.detectChanges();
   }
+
+
+ getMovieData(){
+    this.movieService.getMovies().subscribe({
+      next: (res: any[]) => {
+        this.allMovies = res;
+        this.moviesData = res;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => console.error('Error fetching movies:', err),
+    });
+ }
+
 }

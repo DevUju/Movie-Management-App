@@ -9,12 +9,17 @@ export const routes: Routes = [
     {
         path: 'movies',
         canActivate: [authGuard],
-        loadComponent: () => import('./movies/movie-list/movie-list').then(m => m.MovieList)
+        loadComponent: () => import('./movies/movie').then(m => m.Movies)
     },
     {
         path: 'movies/:id',
         canActivate: [authGuard],
         loadComponent: () => import('./movies/movie-detail/movie-detail').then(m => m.MovieDetail)
+    },
+    {
+        path: 'favorites',
+        canActivate: [authGuard],
+        loadComponent: () => import('./favorites/favorite/favorites').then(m => m.Favorites)
     },
     {
         path: '',

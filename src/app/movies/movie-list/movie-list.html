@@ -1,4 +1,4 @@
-<!-- <div class="movie-container">
+<div class="movie-container">
   <h2 class="title">Popular Movies</h2>
 
   <div class="movie-grid">
@@ -7,27 +7,24 @@
       <img
         class="movie-poster"
         [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-        [alt]="movie.title"
+        [alt]="movie.original_title"
       />
 
       <div class="movie-info">
-        <h3>{{ movie.title }}</h3>
+        <h3>{{ movie.original_title }}</h3>
         <p class="rating">⭐ {{ movie.vote_average }}</p>
         <p class="overview">
           {{ movie.overview | slice:0:100 }}...
         </p>
 
-        <button class="details-btn">
-          View Details
-        </button>
+        <div class="movie-actions">
+          <button class="details-btn" [routerLink]="['/movies', movie.id]">
+            View Details
+          </button>
+          <button class="fav-btn" (click)="addToFavorites(movie)">❤️ Add</button>
+        </div>
       </div>
 
     </div>
   </div>
-</div> -->
-<h2>Popular Movies</h2>
-<ul>
-  <li *ngFor="let movie of movies">
-    <a [routerLink]="['/movies', movie.id]">{{ movie.title }}</a>
-  </li>
-</ul>
+</div>

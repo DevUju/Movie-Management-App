@@ -1,0 +1,39 @@
+.detail-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.detail-poster {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.detail-info h2 {
+  margin: 0 0 0.5rem;
+}
+
+.rating { color: #f39c12; font-weight: bold; }
+.release { color: #777; margin-bottom: 1rem; }
+.overview { line-height: 1.5; color: #333; }
+
+.detail-actions { margin-top: 1rem; }
+.detail-actions .fav-btn { background: #e74c3c; color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 5px; cursor: pointer; }
+.detail-actions .fav-btn:hover { background: #c0392b; }
