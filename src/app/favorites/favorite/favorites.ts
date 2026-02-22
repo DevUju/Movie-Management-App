@@ -3,14 +3,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FavoriteService } from '../favorites';
 import { Router } from '@angular/router';
-import { Navbar } from '../../header/navbar/navbar';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-favorites',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './favorites.html',
-  styleUrl: './favorites.css',
+  styleUrls: ['./favorites.css'],
 })
 export class Favorites {
   favouriteCounter$!: Observable<number>;
@@ -28,7 +28,7 @@ export class Favorites {
       this.favoriteMovies = movies;
     });
     this.favouriteCounter$ = this.favoriteService.favorite$.pipe(
-      map((movies) => movies.reduce((total: number, m: any) => total + (m.quantity || 0), 0))
+      map((movies) => movies.length)
     );
   }
 

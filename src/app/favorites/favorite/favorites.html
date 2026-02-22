@@ -1,9 +1,13 @@
 <div class="favorites-container">
   <h2>Favourites</h2>
   <div class="fav-item" *ngFor="let movie of favoriteMovies$ | async">
-    <span class="fav-movie-name">{{ movie.name }}</span>
-    <span class="fav-movie-name">{{ movie.overview }}</span>
-    <span><button (click)="removeFromFavorites(movie.id)">❌</button></span>
+    <img class="fav-poster" [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" [alt]="movie.original_title" />
+    <div class="fav-details">
+      <h3 class="fav-title">{{ movie.original_title }}</h3>
+      <p class="fav-rating">⭐ {{ movie.vote_average }}</p>
+      <p class="fav-overview">{{ movie.overview | slice:0:150 }}...</p>
+    </div>
+    <button class="fav-remove" (click)="removeFromFavorites(movie.id)">❌</button>
   </div>
   <div class="fav-total">
     Total: {{ getTotalFavorites() }}

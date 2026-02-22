@@ -1,2 +1,2 @@
-<app-navbar (getSearchQueryNav)="onSearchApp($event)"></app-navbar>
+<app-navbar [favouriteCounter$]="favouriteCounter$" (getSearchQueryNav)="onSearchApp($event)"></app-navbar>
 <app-movie-list [movies]="moviesData"> </app-movie-list>

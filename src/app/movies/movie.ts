@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MovieService } from './movie.service';
 import { MovieList } from './movie-list/movie-list';
 import { Navbar } from '../header/navbar/navbar';
-// FavoriteService and `Favorites` component removed from imports — not used here
+import { FavoriteService } from '../favorites/favorites';
 
 
 @Component({
@@ -24,10 +25,16 @@ export class Movies implements OnInit {
   private _favouriteCounter = new BehaviorSubject<number>(0);
   favouriteCounter$: Observable<number> = this._favouriteCounter.asObservable();
 
+  private favoriteService = inject(FavoriteService);
+
   constructor(
     private movieService: MovieService,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) {
+    this.favouriteCounter$ = this.favoriteService.favorite$.pipe(
+      map((movies: any[]) => movies.length)
+    );
+  }
 
   ngOnInit() {
     this.getMovieData();

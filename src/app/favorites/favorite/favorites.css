@@ -19,9 +19,8 @@
 
 /* Favorite Item Card */
 .fav-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
   gap: 15px;
   padding: 15px;
   margin-bottom: 12px;
@@ -29,6 +28,7 @@
   border-radius: 10px;
   border: 1px solid #e6e6e6;
   transition: 0.2s ease;
+  align-items: start;
 }
 
 .fav-item:hover {
@@ -36,27 +36,56 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
 }
 
-/* Movie Name + Overview */
-.fav-movie-name {
-  flex: 1;
+/* Poster Image */
+.fav-poster {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Details Container */
+.fav-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fav-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.fav-rating {
+  margin: 0;
   font-size: 14px;
-  color: #444;
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.fav-overview {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
   line-height: 1.4;
 }
 
 /* Remove Button */
-.fav-item button {
+.fav-remove {
   background: #ff4d4f;
   border: none;
-  padding: 6px 10px;
+  padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
   transition: 0.2s ease;
+  height: fit-content;
 }
 
-.fav-item button:hover {
+.fav-remove:hover {
   background: #d9363e;
 }
 

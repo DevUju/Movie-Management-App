@@ -3,7 +3,7 @@ import { MovieService } from '../movie.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
-import { FavoriteService } from '../../favorite-movie/favorites';
+import { FavoriteService } from '../../favorites/favorites';
 
 
 @Component({

@@ -29,11 +29,13 @@ export class ErrorHandler {
         case 500:
           errorMessage = "Internal server error. Please try later.";
           break;
+        default:
+          errorMessage = `API Error: ${error.status} ${error.statusText}`;
       }
     }
 
-    console.error(errorMessage);
+    console.error('API Error:', errorMessage, error);
 
-    return throwError(() => errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }
