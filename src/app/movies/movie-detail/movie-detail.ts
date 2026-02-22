@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../movie.service';
-import { FavoriteService } from '../../favorites/favorites';
+import { FavoriteService } from '../../favorite-movie/favorites';
 
 @Component({
   selector: 'app-movie-detail',
