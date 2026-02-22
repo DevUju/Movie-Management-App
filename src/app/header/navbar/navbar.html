@@ -5,11 +5,14 @@
             <app-search (searchQuery)="onSearchNav($event)"></app-search>
         </div>
 
-        <div class="favorites-section">
-            <a routerLink="/favorites" class="favorites-link">
-                <span class="favorites-icon">❤️</span>
-                <span class="favorites-count" *ngIf="favouriteCounter$ | async as count">{{ count }}</span>
-            </a>
+        <div class="nav-right-section">
+            <div class="favorites-section">
+                <a routerLink="/favorites" class="favorites-link">
+                    <span class="favorites-icon">❤️</span>
+                    <span class="favorites-count" *ngIf="favouriteCounter$ | async as count">{{ count }}</span>
+                </a>
+            </div>
+            <button class="logout-btn" (click)="logout()" title="Logout">🚪 Logout</button>
         </div>  
     </div>
 </header>

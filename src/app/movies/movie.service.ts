@@ -26,8 +26,19 @@ export class MovieService {
   }
 
   getMovie(id: string): Observable<any> {
+    const url = `${environment.baseUrl}/movie/${id}?api_key=${environment.apiKey}`;
+    console.log('Fetching movie from:', url);
     return this.http
-      .get<any>(`${environment.baseUrl}/movie/${id}?api_key=${environment.apiKey}`)
-      .pipe(catchError((err) => this.errorHandler.handleError(err)));
+      .get<any>(url)
+      .pipe(
+        map((response) => {
+          console.log('Movie API response:', response);
+          return response;
+        }),
+        catchError((err) => {
+          console.error('Movie API error:', err);
+          return this.errorHandler.handleError(err);
+        })
+      );
   }
 }

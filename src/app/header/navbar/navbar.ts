@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Search } from './search/search';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -15,9 +16,15 @@ export class Navbar {
 
   @Output() getSearchQueryNav = new EventEmitter<string>();
 
+  constructor(private authService: AuthService) {}
+
   onSearchNav(query: string): void {
     console.log('Received search query from Search component:', query);
     this.getSearchQueryNav.emit(query);
-  } 
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 
 }

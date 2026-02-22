@@ -1,7 +1,6 @@
 <div style="padding: 2rem; text-align: center;">
-	<p *ngIf="!movie && !errorMessage" style="color: #999;">Loading movie details...</p>
-	<p *ngIf="errorMessage" style="color: #d9534f; background: #f8d7da; padding: 1rem; border-radius: 4px; max-width: 600px; margin: 1rem auto;">{{ errorMessage }}</p>
-	<pre *ngIf="!movie && !errorMessage" style="background: #f8f8f8; padding: 1rem; margin: 1rem auto; max-width: 600px; text-align: left;">{{ movie | json }}</pre>
+	<p *ngIf="!movie && !errorMessage" style="color: #999; margin: 2rem 0;">{{ loadingMessage }}</p>
+	<p *ngIf="errorMessage" style="color: #d9534f; background: #f8d7da; padding: 1rem; border-radius: 4px; max-width: 600px; margin: 1rem auto; line-height: 1.5;">{{ errorMessage }}</p>
 </div>
 
 <div class="detail-container" *ngIf="movie as m">

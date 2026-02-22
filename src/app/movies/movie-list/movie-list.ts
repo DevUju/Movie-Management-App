@@ -22,15 +22,7 @@ constructor(
   private favoriteService: FavoriteService,
 ) {}
 
-ngOnInit() {
-  // this.movieService.getMovies().subscribe({
-  //   next: (res: any[]) => {
-  //     this.movies = res;
-  //     this.cdr.detectChanges();
-  //   },
-  //   error: (err: any) => console.error('Error fetching movies:', err)
-  // });
-}
+ngOnInit() {}
 
 addToFavorites(movie: any): void {
   this.favoriteService.addToFavorite(movie);

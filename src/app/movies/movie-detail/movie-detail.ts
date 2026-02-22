@@ -15,6 +15,7 @@ export class MovieDetail implements OnInit {
   movie: any | null = null;
   addedToFavorites = false;
   errorMessage: string = '';
+  loadingMessage: string = 'Loading movie details...';
 
   constructor(
     private route: ActivatedRoute,
@@ -24,22 +25,39 @@ export class MovieDetail implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log('MovieDetail init, id=', id);
+    console.log('[MovieDetail] Init with id=', id);
+    
     if (id) {
+      console.log('[MovieDetail] Calling getMovie service with id:', id);
+      
+      // Add a timeout to catch if request hangs
+      const timeoutId = setTimeout(() => {
+        if (!this.movie && !this.errorMessage) {
+          console.warn('[MovieDetail] Request timeout after 10 seconds');
+          this.errorMessage = 'Request timeout. Please check your internet connection or try again.';
+        }
+      }, 10000);
+      
       this.movieService.getMovie(id).subscribe({
         next: (res) => {
-          console.log('API response:', res);
+          clearTimeout(timeoutId);
+          console.log('[MovieDetail] Got response:', res);
           this.movie = res;
           this.errorMessage = '';
         },
         error: (err) => {
-          console.error('Failed to load movie detail:', err);
-          this.errorMessage = `Error: ${err}`;
+          clearTimeout(timeoutId);
+          console.error('[MovieDetail] Got error:', err);
+          this.errorMessage = err?.message || String(err) || 'Unknown error loading movie';
+        },
+        complete: () => {
+          clearTimeout(timeoutId);
+          console.log('[MovieDetail] Observable completed');
         }
       });
     } else {
-      console.warn('No movie id found on route');
-      this.errorMessage = 'No movie ID in route';
+      console.warn('[MovieDetail] No movie id found on route');
+      this.errorMessage = 'No movie ID in route. Did you click "View Details" from the movie list?';
     }
   }
 
