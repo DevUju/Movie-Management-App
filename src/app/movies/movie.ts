@@ -62,7 +62,7 @@ export class Movies implements OnInit {
         this.moviesData = res;
         this.cdr.detectChanges();
       },
-      error: (err: any) => console.error('Error fetching movies:', err),
+      error: (err: any) => {},
     });
  }
 

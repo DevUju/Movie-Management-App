@@ -15,7 +15,6 @@ export class Search {
   onSearch(query?: string): void {
     const term = ((query ?? this.searchTerm) || "").trim();
     if (term) {
-      console.log('Search term:', term);
       this.searchQuery.emit(term);
     }
 

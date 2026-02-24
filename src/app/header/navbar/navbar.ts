@@ -19,7 +19,6 @@ export class Navbar {
   constructor(private authService: AuthService) {}
 
   onSearchNav(query: string): void {
-    console.log('Received search query from Search component:', query);
     this.getSearchQueryNav.emit(query);
   }
 

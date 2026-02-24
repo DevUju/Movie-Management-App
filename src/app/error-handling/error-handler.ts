@@ -34,8 +34,6 @@ export class ErrorHandler {
       }
     }
 
-    console.error('API Error:', errorMessage, error);
-
     return throwError(() => new Error(errorMessage));
   }
 }

@@ -27,8 +27,6 @@ export class FavoriteService {
   private updateLocalStorage() {
     if (this.isBrowser) {
       localStorage.setItem('favoriteMovies', JSON.stringify(this.favoriteMovies));
-    } else {
-      console.warn('LocalStorage is not available on the server.');
     }
   }
 

@@ -44,11 +44,9 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const hasToken = !!this.getToken();
-    console.log('[AuthService] isAuthenticated:', hasToken, 'token:', this.getToken() ? 'exists' : 'null');
     return hasToken;
   }
 
-  // Generate a fake token (for testing only)
   private generateFakeToken(email: string): string {
     const payload = {
       email,
